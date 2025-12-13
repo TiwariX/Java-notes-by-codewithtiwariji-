@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TiwariX Web Solutions | Premium Web Design</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #000000;
+            --text-color: #f5f5f7;
+            --accent-color: #2997ff;
+            --glass-bg: rgba(22, 22, 24, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-bg: #1d1d1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            /* Gradient Text Effect for Logo */
+            background: linear-gradient(90deg, #fff, #a1a1a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-btn {
+            background: #fff;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Mobile Adjustment for Long Name */
+        @media (max-width: 600px) {
+            .logo { font-size: 1rem; }
+            nav { padding: 15px 20px; }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            /* Premium Tech Background */
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65); /* Darker overlay for better text visibility */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2997ff, #d553ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: #d2d2d7;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        /* --- CONTACT BUTTONS --- */
+        .contact-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .cta-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: #fff;
+            border: 1px solid #25D366;
+        }
+
+        .btn-email {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- PORTFOLIO SECTION --- */
+        .portfolio {
+            padding: 80px 5%;
+            background: #000;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .cards-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 350px;
+            border-radius: 18px;
+            overflow: hidden;
+            transition: transform 0.4s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 25px;
+        }
+
+        .card-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .card-info p {
+            color: #86868b;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* --- FOUNDER BADGE --- */
+        .founder-badge {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            width: 100%;
+        }
+
+        .founder-badge small {
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+        
+        .founder-badge div {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">TiwariX Web Solutions</div>
+        <a href="https://wa.me/919453983879" class="nav-btn">Get in Touch</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Designed by <span class="gradient-text">Himanshu Tiwari</span></h1>
+            <p>Building the future of web experiences. Minimal. Modern. Powerful.</p>
+            
+            <div class="contact-container">
+                <a href="https://wa.me/919453983879?text=Hi%20Himanshu,%20I%20am%20interested%20in%20your%20web%20services." 
+                   class="cta-btn btn-whatsapp" target="_blank">
+                   Chat on WhatsApp
+                </a>
+                
+                <a href="mailto:aryantiwari1234r@gmail.com" class="cta-btn btn-email">
+                   Send Email
+                </a>
+            </div>
+        </div>
+
+        <div class="founder-badge">
+            <small>Founder & CEO</small>
+            <div>Himanshu Tiwari</div>
+        </div>
+    </section>
+
+    <section class="portfolio">
+        <h2 class="section-title">What We Create</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="Web Design" class="card-img">
+                <div class="card-info">
+                    <h3>Business Websites</h3>
+                    <p>Professional, high-converting websites tailored for your brand growth.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Coding" class="card-img">
+                <div class="card-info">
+                    <h3>Custom Development</h3>
+                    <p>Robust coding solutions using modern technologies for speed and security.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop" alt="UI Design" class="card-img">
+                <div class="card-info">
+                    <h3>UI/UX Design</h3>
+                    <p>Apple-inspired minimalist interfaces that users love to interact with.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Animations
+        gsap.to(".hero h1", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2});
+        gsap.to(".hero p", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.4});
+        gsap.to(".contact-container", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.6});
+        gsap.to(".founder-badge", {opacity: 1, duration: 1.5, delay: 1});
+
+        // Scroll Animation for Cards
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".card", {
+            scrollTrigger: {
+                trigger: ".portfolio",
+                start: "top 80%", 
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+    </script>
+
+</body>
+</html>
