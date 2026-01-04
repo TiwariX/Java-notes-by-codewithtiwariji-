@@ -1,251 +1,334 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codewithtiwariji | Java Pro Universe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #000000;
-            --card-bg: #1c1c1e;
-            --accent: #2997ff;
-            --text-main: #f5f5f7;
-            --text-sub: #86868b;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codewithtiwariji | Java Hinglish Notes</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg); 
-            font-family: 'Inter', sans-serif; 
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        /* Smooth Scroll */
-        html { scroll-behavior: smooth; }
+<style>
+:root{
+--bg:#0f0f11;
+--card:#18181b;
+--border:#26262b;
+--accent:#3b82f6;
+--text:#f4f4f5;
+--muted:#a1a1aa;
+}
 
-        /* Premium Nav */
-        nav {
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(20px);
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            position: fixed;
-            top: 0; width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid var(--glass);
-        }
-        .logo { font-weight: 800; font-size: 20px; letter-spacing: -1px; background: linear-gradient(90deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+background:var(--bg);
+color:var(--text);
+font-family:'Inter',sans-serif;
+line-height:1.7;
+}
 
-        /* Hero Section - Apple Pro Style */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-        }
-        .hero h1 { 
-            font-size: clamp(40px, 8vw, 90px); 
-            font-weight: 800; 
-            letter-spacing: -3px; 
-            line-height: 1;
-            margin-bottom: 20px;
-        }
-        .hero span { color: var(--accent); }
-        .hero p { font-size: 20px; color: var(--text-sub); max-width: 600px; }
+/* ========== WELCOME SCREEN ========== */
+#welcome-screen{
+position:fixed;
+inset:0;
+background:#0f0f11;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+animation:fadeOut 1s ease forwards;
+animation-delay:9s;
+}
+.welcome-content{
+text-align:center;
+animation:fadeInUp 1.2s ease;
+}
+.welcome-content h1{
+font-size:48px;
+color:var(--accent);
+font-weight:700;
+}
+.welcome-content p{
+margin-top:15px;
+font-size:18px;
+color:#d4d4d8;
+}
+.welcome-content span{
+display:block;
+margin-top:25px;
+font-size:14px;
+color:var(--muted);
+letter-spacing:1px;
+}
+@keyframes fadeInUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeOut{
+to{opacity:0;visibility:hidden}
+}
 
-        /* Java Chapters Section */
-        .content-section { padding: 100px 20px; max-width: 1200px; margin: auto; }
-        .section-title { font-size: 40px; margin-bottom: 50px; text-align: center; }
+/* ========== NAV ========== */
+nav{
+position:fixed;
+top:0;width:100%;
+height:64px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(15,15,17,0.85);
+backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);
+z-index:1000;
+}
+.logo{
+font-size:20px;
+font-weight:700;
+}
 
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 25px; 
-        }
+/* ========== HERO ========== */
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:0 20px;
+}
+.hero h1{
+font-size:clamp(42px,7vw,80px);
+font-weight:700;
+}
+.hero span{color:var(--accent)}
+.hero p{
+margin-top:20px;
+font-size:18px;
+color:var(--muted);
+max-width:650px;
+}
 
-        /* Glassmorphism Cards */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--glass);
-            border-radius: 28px;
-            padding: 40px;
-            transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(41, 151, 255, 0.2);
-        }
-        .card h2 { font-size: 24px; margin-bottom: 20px; color: var(--accent); }
-        .card ul { list-style: none; }
-        .card li { 
-            padding: 12px 0; 
-            border-bottom: 1px solid var(--glass); 
-            font-size: 15px; 
-            color: #d1d1d6;
-        }
-        .card li:last-child { border: none; }
+/* ========== SECTION ========== */
+.section{
+max-width:900px;
+margin:auto;
+padding:120px 20px 80px;
+}
+.section h2{
+text-align:center;
+font-size:34px;
+margin-bottom:50px;
+}
 
-        .download-btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 12px 30px;
-            background: var(--text-main);
-            color: #000;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-        .download-btn:hover { background: var(--accent); color: #fff; }
+/* ========== ACCORDION ========== */
+.chapter{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:16px;
+margin-bottom:18px;
+overflow:hidden;
+}
+.chapter-header{
+padding:20px 24px;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.chapter-header h3{
+font-size:18px;
+color:var(--accent);
+}
+.chapter-header span{
+font-size:22px;
+color:var(--muted);
+}
+.chapter-content{
+max-height:0;
+overflow:hidden;
+transition:0.4s ease;
+padding:0 24px;
+}
+.chapter-content p{
+color:#d4d4d8;
+font-size:15px;
+margin-bottom:12px;
+}
+.chapter.active .chapter-content{
+max-height:1000px;
+padding:20px 24px 30px;
+}
 
-        /* Insta Section - Tagdi Look */
-        .insta-box {
-            margin: 100px 20px;
-            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-            padding: 80px;
-            border-radius: 40px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(253, 29, 29, 0.3);
-        }
-        .insta-box h2 { font-size: 50px; font-weight: 800; margin-bottom: 20px; }
-        .insta-btn {
-            font-size: 24px;
-            color: white;
-            text-decoration: none;
-            border: 2px solid white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            transition: 0.3s;
-        }
-        .insta-btn:hover { background: white; color: #fd1d1d; }
-
-        footer { text-align: center; padding: 50px; color: var(--text-sub); font-size: 14px; }
-
-        /* Animation */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .card { animation: fadeIn 1s ease both; }
-    </style>
+/* ========== FOOTER ========== */
+footer{
+border-top:1px solid var(--border);
+padding:40px 20px;
+text-align:center;
+color:var(--muted);
+font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
+<!-- WELCOME -->
+<div id="welcome-screen">
+<div class="welcome-content">
+<h1>Codewithtiwariji</h1>
+<p>Welcome! Java ko simple Hinglish mein samajhne ki jagah</p>
+<span>Loading knowledge for you… 🚀</span>
+</div>
+</div>
+
 <nav>
-    <div class="logo">Codewithtiwariji</div>
-    <div style="display:flex; gap: 20px;">
-        <a href="#" style="color:white; text-decoration:none; font-size:14px;">Master Java</a>
-        <a href="#insta" style="color:white; text-decoration:none; font-size:14px;">Follow Us</a>
-    </div>
+<div class="logo">Codewithtiwariji</div>
 </nav>
 
 <section class="hero">
-    <h1>Java. <span>Reimagined.</span></h1>
-    <p>266 Pages of Pure Knowledge. Line-by-line breakdown for the next generation of coders.</p>
-    <div style="margin-top: 40px;">
-        <a href="#chapters" class="download-btn" style="background:var(--accent); color:white; padding: 18px 45px; font-size: 18px;">Start Learning Free</a>
-    </div>
+<h1>Java. <span>Reimagined.</span></h1>
+<p>266 Pages of Pure Knowledge. Line-by-line breakdown for the next generation of coders.</p>
 </section>
 
-<div class="content-section" id="chapters">
-    <h2 class="section-title">The Complete Curriculum</h2>
-    <div class="grid">
-        <div class="card">
-            <h2>01. Mental Landscape</h2>
-            <ul>
-                <li>• Machine Language & High-Level Code</li>
-                <li>• JVM: How Java runs everywhere</li>
-                <li>• Software Engineering Principles</li>
-                <li>• History of Java Development</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 1</a>
-        </div>
-        <div class="card">
-            <h2>02. Names & Things</h2>
-            <ul>
-                <li>• Variables, Memory & Data Types</li>
-                <li>• Primitive Types (int, double, char)</li>
-                <li>• Strings & Classes as Types</li>
-                <li>• TextIO: Professional User Input</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 2</a>
-        </div>
-        <div class="card">
-            <h2>03. Control Flow</h2>
-            <ul>
-                <li>• Blocks, Loops (While/Do-While)</li>
-                <li>• The Powerful 'For' Statement</li>
-                <li>• If-Else & Switch Decisions</li>
-                <li>• Exception Handling (Try-Catch)</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 3</a>
-        </div>
-        <div class="card">
-            <h2>04. Subroutines</h2>
-            <ul>
-                <li>• Black Box Programming</li>
-                <li>• Static vs Dynamic Methods</li>
-                <li>• Parameters & Return Values</li>
-                <li>• The Magic of Recursion</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 4</a>
-        </div>
-        <div class="card">
-            <h2>05. OOPs Concept</h2>
-            <ul>
-                <li>• Objects, Classes & Constructors</li>
-                <li>• Inheritance (Super & Subclasses)</li>
-                <li>• Polymorphism & Dynamic Linking</li>
-                <li>• Interfaces & Nested Classes</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 5</a>
-        </div>
-        <div class="card">
-            <h2>06. GUI & Swing</h2>
-            <ul>
-                <li>• Applets & Basic GUI Theory</li>
-                <li>• Graphics Context & Drawing</li>
-                <li>• Mouse & Keyboard Events</li>
-                <li>• Complex Layout Management</li>
-            </ul>
-            <a href="#" class="download-btn">Get Chapter 6</a>
-        </div>
-        <div class="card" style="background: linear-gradient(to bottom, #1c1c1e, #000);">
-            <h2>07-13. The Pro Level</h2>
-            <ul>
-                <li>• Arrays & Dynamic Collections (Ch 7)</li>
-                <li>• Robustness & Error Handling (Ch 8)</li>
-                <li>• Linked Lists & Binary Trees (Ch 9)</li>
-                <li>• Generic Programming (Ch 10)</li>
-                <li>• Files & Advanced I/O (Ch 11)</li>
-                <li>• Threads & Multiprocessing (Ch 12)</li>
-            </ul>
-            <a href="#" class="download-btn">Download Full 266pg PDF</a>
-        </div>
-    </div>
+<section class="section">
+<h2>Complete Java Notes (Hinglish)</h2>
+
+<!-- CHAPTERS START -->
+
+<div class="chapter">
+<div class="chapter-header"><h3>01. Mental Landscape</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Is chapter mein hum samajhte hain ki computer kaise kaam karta hai.</p>
+<p>Computer sirf 0 aur 1 samajhta hai jise machine language kehte hain.</p>
+<p>Java jaise high-level languages humans ke liye easy hoti hain.</p>
+<p>JVM Java ko har OS par chalne layak banati hai.</p>
+</div>
 </div>
 
-<section class="insta-box" id="insta">
-    <h2>Codewithtiwariji</h2>
-    <p style="margin-bottom: 40px; font-size: 20px;">Ek bhi line chhootni nahi chahiye. Join the community now!</p>
-    <a href="https://instagram.com/Codewithtiwariji" class="insta-btn">Instagram: @Codewithtiwariji 🔥</a>
+<div class="chapter">
+<div class="chapter-header"><h3>02. Names & Things</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Variable ek box hota hai jisme data store hota hai.</p>
+<p>Har variable ka data type hota hai.</p>
+<p>Primitive data types basic values store karte hain.</p>
+<p>String text ko handle karne ke kaam aati hai.</p>
+</div>
+</div>
+
+<div class="chapter"><div class="chapter-header"><h3>03. Control Flow</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Control flow decide karta hai kaunsa code kab chalega.</p>
+<p>If-else decision lene ke liye use hota hai.</p>
+<p>Loops repeated kaam ko easy bana dete hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>04. Methods</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Methods code ko reusable banate hain.</p>
+<p>Parameters data pass karte hain.</p>
+<p>Return value output deti hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>05. OOP Concepts</h3><span>+</span></div>
+<div class="chapter-content">
+<p>OOP real-world concepts par based hota hai.</p>
+<p>Class blueprint hoti hai aur object real entity.</p>
+<p>Inheritance aur polymorphism code reuse badhate hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>06. Arrays</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Array multiple values store karta hai.</p>
+<p>Index se data access hota hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>07. Strings</h3><span>+</span></div>
+<div class="chapter-content">
+<p>String immutable hoti hai.</p>
+<p>Text handling ke liye use hoti hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>08. Exception Handling</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Errors ko handle karne ke liye exception use hoti hai.</p>
+<p>Try-catch program ko crash hone se bachata hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>09. Packages</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Packages code ko organized rakhte hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>10. Interfaces</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Interface method ka structure define karti hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>11. File Handling</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Files data ko permanent store karti hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>12. Multithreading</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Multiple tasks ek saath run hote hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>13. Collections</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Dynamic data structures available hote hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>14. Generics</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Type safety provide karta hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>15. GUI Basics</h3><span>+</span></div>
+<div class="chapter-content">
+<p>User interaction ke liye GUI use hota hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>16. Event Handling</h3><span>+</span></div>
+<div class="chapter-content">
+<p>User actions events kehlate hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>17. JDBC</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Database ko Java se connect karta hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>18. Networking</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Computers ko connect karta hai.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>19. JVM Internals</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Memory aur garbage collection samajhte hain.</p>
+</div></div>
+
+<div class="chapter"><div class="chapter-header"><h3>20. Advanced Java</h3><span>+</span></div>
+<div class="chapter-content">
+<p>Servlet aur frameworks ka intro.</p>
+</div></div>
+
 </section>
 
 <footer>
-    <p>Handcrafted by Himanshu Tiwari</p>
-    <p style="margin-top:10px; opacity:0.5;">Based on Introduction to Programming Using Java, 5th Ed.</p>
+<p>Education should be simple, free aur samajhne layak ❤️</p>
 </footer>
+
+<script>
+setTimeout(()=>{
+document.getElementById("welcome-screen").style.display="none";
+},10000);
+
+document.querySelectorAll(".chapter-header").forEach(h=>{
+h.addEventListener("click",()=>{
+h.parentElement.classList.toggle("active");
+});
+});
+</script>
 
 </body>
 </html>
-
-
