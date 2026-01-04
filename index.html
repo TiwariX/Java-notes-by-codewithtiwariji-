@@ -1,86 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TiwariX Web Solutions | Premium Web Design</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <title>Codewithtiwariji | Java Pro Universe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --bg-color: #000000;
-            --text-color: #f5f5f7;
-            --accent-color: #2997ff;
-            --glass-bg: rgba(22, 22, 24, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-bg: #1d1d1f;
+            --bg: #000000;
+            --card-bg: #1c1c1e;
+            --accent: #2997ff;
+            --text-main: #f5f5f7;
+            --text-sub: #86868b;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main);
             overflow-x: hidden;
-            line-height: 1.5;
         }
 
-        /* --- NAVBAR --- */
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Premium Nav */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0,0,0,0.8);
             backdrop-filter: blur(20px);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            position: fixed;
+            top: 0; width: 100%;
             z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass);
         }
+        .logo { font-weight: 800; font-size: 20px; letter-spacing: -1px; background: linear-gradient(90deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.5px;
-            /* Gradient Text Effect for Logo */
-            background: linear-gradient(90deg, #fff, #a1a1a6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-btn {
-            background: #fff;
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Mobile Adjustment for Long Name */
-        @media (max-width: 600px) {
-            .logo { font-size: 1rem; }
-            nav { padding: 15px 20px; }
-        }
-
-        /* --- HERO SECTION --- */
+        /* Hero Section - Apple Pro Style */
         .hero {
             height: 100vh;
             display: flex;
@@ -88,260 +49,202 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 20px;
-            position: relative;
-            /* Premium Tech Background */
-            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop') no-repeat center center/cover;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.65); /* Darker overlay for better text visibility */
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 700;
-            line-height: 1.1;
+        .hero h1 { 
+            font-size: clamp(40px, 8vw, 90px); 
+            font-weight: 800; 
+            letter-spacing: -3px; 
+            line-height: 1;
             margin-bottom: 20px;
-            letter-spacing: -1px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            opacity: 0;
-            transform: translateY(50px);
+        }
+        .hero span { color: var(--accent); }
+        .hero p { font-size: 20px; color: var(--text-sub); max-width: 600px; }
+
+        /* Java Chapters Section */
+        .content-section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        .section-title { font-size: 40px; margin-bottom: 50px; text-align: center; }
+
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 25px; 
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #2997ff, #d553ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            color: #d2d2d7;
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        /* --- CONTACT BUTTONS --- */
-        .contact-container {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .cta-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: #fff;
-            border: 1px solid #25D366;
-        }
-
-        .btn-email {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* --- PORTFOLIO SECTION --- */
-        .portfolio {
-            padding: 80px 5%;
-            background: #000;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .cards-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
+        /* Glassmorphism Cards */
         .card {
             background: var(--card-bg);
-            width: 350px;
-            border-radius: 18px;
+            border: 1px solid var(--glass);
+            border-radius: 28px;
+            padding: 40px;
+            transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
             overflow: hidden;
-            transition: transform 0.4s ease;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.05);
         }
-
         .card:hover {
-            transform: scale(1.02);
-            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(41, 151, 255, 0.2);
         }
+        .card h2 { font-size: 24px; margin-bottom: 20px; color: var(--accent); }
+        .card ul { list-style: none; }
+        .card li { 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--glass); 
+            font-size: 15px; 
+            color: #d1d1d6;
+        }
+        .card li:last-child { border: none; }
 
-        .card-img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .card-info {
-            padding: 25px;
-        }
-
-        .card-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            color: #fff;
-        }
-
-        .card-info p {
-            color: #86868b;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        /* --- FOUNDER BADGE --- */
-        .founder-badge {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            text-align: center;
-            opacity: 0;
-            width: 100%;
-        }
-
-        .founder-badge small {
-            color: #888;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-        }
-        
-        .founder-badge div {
+        .download-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: var(--text-main);
+            color: #000;
+            border-radius: 30px;
+            text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            color: #fff;
+            font-size: 14px;
+            transition: 0.3s;
         }
+        .download-btn:hover { background: var(--accent); color: #fff; }
 
+        /* Insta Section - Tagdi Look */
+        .insta-box {
+            margin: 100px 20px;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            padding: 80px;
+            border-radius: 40px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(253, 29, 29, 0.3);
+        }
+        .insta-box h2 { font-size: 50px; font-weight: 800; margin-bottom: 20px; }
+        .insta-btn {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .insta-btn:hover { background: white; color: #fd1d1d; }
+
+        footer { text-align: center; padding: 50px; color: var(--text-sub); font-size: 14px; }
+
+        /* Animation */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .card { animation: fadeIn 1s ease both; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">TiwariX Web Solutions</div>
-        <a href="https://wa.me/919453983879" class="nav-btn">Get in Touch</a>
-    </nav>
+<nav>
+    <div class="logo">Codewithtiwariji</div>
+    <div style="display:flex; gap: 20px;">
+        <a href="#" style="color:white; text-decoration:none; font-size:14px;">Master Java</a>
+        <a href="#insta" style="color:white; text-decoration:none; font-size:14px;">Follow Us</a>
+    </div>
+</nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Designed by <span class="gradient-text">Himanshu Tiwari</span></h1>
-            <p>Building the future of web experiences. Minimal. Modern. Powerful.</p>
-            
-            <div class="contact-container">
-                <a href="https://wa.me/919453983879?text=Hi%20Himanshu,%20I%20am%20interested%20in%20your%20web%20services." 
-                   class="cta-btn btn-whatsapp" target="_blank">
-                   Chat on WhatsApp
-                </a>
-                
-                <a href="mailto:aryantiwari1234r@gmail.com" class="cta-btn btn-email">
-                   Send Email
-                </a>
-            </div>
+<section class="hero">
+    <h1>Java. <span>Reimagined.</span></h1>
+    <p>266 Pages of Pure Knowledge. Line-by-line breakdown for the next generation of coders.</p>
+    <div style="margin-top: 40px;">
+        <a href="#chapters" class="download-btn" style="background:var(--accent); color:white; padding: 18px 45px; font-size: 18px;">Start Learning Free</a>
+    </div>
+</section>
+
+<div class="content-section" id="chapters">
+    <h2 class="section-title">The Complete Curriculum</h2>
+    <div class="grid">
+        <div class="card">
+            <h2>01. Mental Landscape</h2>
+            <ul>
+                <li>• Machine Language & High-Level Code</li>
+                <li>• JVM: How Java runs everywhere</li>
+                <li>• Software Engineering Principles</li>
+                <li>• History of Java Development</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 1</a>
         </div>
-
-        <div class="founder-badge">
-            <small>Founder & CEO</small>
-            <div>Himanshu Tiwari</div>
+        <div class="card">
+            <h2>02. Names & Things</h2>
+            <ul>
+                <li>• Variables, Memory & Data Types</li>
+                <li>• Primitive Types (int, double, char)</li>
+                <li>• Strings & Classes as Types</li>
+                <li>• TextIO: Professional User Input</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 2</a>
         </div>
-    </section>
-
-    <section class="portfolio">
-        <h2 class="section-title">What We Create</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="Web Design" class="card-img">
-                <div class="card-info">
-                    <h3>Business Websites</h3>
-                    <p>Professional, high-converting websites tailored for your brand growth.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Coding" class="card-img">
-                <div class="card-info">
-                    <h3>Custom Development</h3>
-                    <p>Robust coding solutions using modern technologies for speed and security.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop" alt="UI Design" class="card-img">
-                <div class="card-info">
-                    <h3>UI/UX Design</h3>
-                    <p>Apple-inspired minimalist interfaces that users love to interact with.</p>
-                </div>
-            </div>
+        <div class="card">
+            <h2>03. Control Flow</h2>
+            <ul>
+                <li>• Blocks, Loops (While/Do-While)</li>
+                <li>• The Powerful 'For' Statement</li>
+                <li>• If-Else & Switch Decisions</li>
+                <li>• Exception Handling (Try-Catch)</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 3</a>
         </div>
-    </section>
+        <div class="card">
+            <h2>04. Subroutines</h2>
+            <ul>
+                <li>• Black Box Programming</li>
+                <li>• Static vs Dynamic Methods</li>
+                <li>• Parameters & Return Values</li>
+                <li>• The Magic of Recursion</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 4</a>
+        </div>
+        <div class="card">
+            <h2>05. OOPs Concept</h2>
+            <ul>
+                <li>• Objects, Classes & Constructors</li>
+                <li>• Inheritance (Super & Subclasses)</li>
+                <li>• Polymorphism & Dynamic Linking</li>
+                <li>• Interfaces & Nested Classes</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 5</a>
+        </div>
+        <div class="card">
+            <h2>06. GUI & Swing</h2>
+            <ul>
+                <li>• Applets & Basic GUI Theory</li>
+                <li>• Graphics Context & Drawing</li>
+                <li>• Mouse & Keyboard Events</li>
+                <li>• Complex Layout Management</li>
+            </ul>
+            <a href="#" class="download-btn">Get Chapter 6</a>
+        </div>
+        <div class="card" style="background: linear-gradient(to bottom, #1c1c1e, #000);">
+            <h2>07-13. The Pro Level</h2>
+            <ul>
+                <li>• Arrays & Dynamic Collections (Ch 7)</li>
+                <li>• Robustness & Error Handling (Ch 8)</li>
+                <li>• Linked Lists & Binary Trees (Ch 9)</li>
+                <li>• Generic Programming (Ch 10)</li>
+                <li>• Files & Advanced I/O (Ch 11)</li>
+                <li>• Threads & Multiprocessing (Ch 12)</li>
+            </ul>
+            <a href="#" class="download-btn">Download Full 266pg PDF</a>
+        </div>
+    </div>
+</div>
 
-    <script>
-        // Animations
-        gsap.to(".hero h1", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2});
-        gsap.to(".hero p", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.4});
-        gsap.to(".contact-container", {opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.6});
-        gsap.to(".founder-badge", {opacity: 1, duration: 1.5, delay: 1});
+<section class="insta-box" id="insta">
+    <h2>Codewithtiwariji</h2>
+    <p style="margin-bottom: 40px; font-size: 20px;">Ek bhi line chhootni nahi chahiye. Join the community now!</p>
+    <a href="https://instagram.com/Codewithtiwariji" class="insta-btn">Instagram: @Codewithtiwariji 🔥</a>
+</section>
 
-        // Scroll Animation for Cards
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from(".card", {
-            scrollTrigger: {
-                trigger: ".portfolio",
-                start: "top 80%", 
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out"
-        });
-    </script>
+<footer>
+    <p>Handcrafted by AI for Codewithtiwariji</p>
+    <p style="margin-top:10px; opacity:0.5;">Based on Introduction to Programming Using Java, 5th Ed.</p>
+</footer>
 
 </body>
 </html>
+
