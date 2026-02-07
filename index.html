@@ -1,334 +1,165 @@
  <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Codewithtiwariji | Java Hinglish Notes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codewithtiwariji | Social Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(circle at 50% -20%, #1a1a1a, #000);
+            min-height: 100-vh;
+        }
 
-<style>
-:root{
---bg:#0f0f11;
---card:#18181b;
---border:#26262b;
---accent:#3b82f6;
---text:#f4f4f5;
---muted:#a1a1aa;
-}
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
 
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-background:var(--bg);
-color:var(--text);
-font-family:'Inter',sans-serif;
-line-height:1.7;
-}
+        .brand-logo {
+            background: linear-gradient(90deg, #007cf0, #00dfd8, #ff0080, #007cf0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-flow 3s linear infinite;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
 
-/* ========== WELCOME SCREEN ========== */
-#welcome-screen{
-position:fixed;
-inset:0;
-background:#0f0f11;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:9999;
-animation:fadeOut 1s ease forwards;
-animation-delay:9s;
-}
-.welcome-content{
-text-align:center;
-animation:fadeInUp 1.2s ease;
-}
-.welcome-content h1{
-font-size:48px;
-color:var(--accent);
-font-weight:700;
-}
-.welcome-content p{
-margin-top:15px;
-font-size:18px;
-color:#d4d4d8;
-}
-.welcome-content span{
-display:block;
-margin-top:25px;
-font-size:14px;
-color:var(--muted);
-letter-spacing:1px;
-}
-@keyframes fadeInUp{
-from{opacity:0;transform:translateY(30px)}
-to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeOut{
-to{opacity:0;visibility:hidden}
-}
+        @keyframes gradient-flow {
+            to { background-position: 200% center; }
+        }
 
-/* ========== NAV ========== */
-nav{
-position:fixed;
-top:0;width:100%;
-height:64px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(15,15,17,0.85);
-backdrop-filter:blur(12px);
-border-bottom:1px solid var(--border);
-z-index:1000;
-}
-.logo{
-font-size:20px;
-font-weight:700;
-}
+        .input-apple {
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
 
-/* ========== HERO ========== */
-.hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:0 20px;
-}
-.hero h1{
-font-size:clamp(42px,7vw,80px);
-font-weight:700;
-}
-.hero span{color:var(--accent)}
-.hero p{
-margin-top:20px;
-font-size:18px;
-color:var(--muted);
-max-width:650px;
-}
+        .input-apple:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+        }
 
-/* ========== SECTION ========== */
-.section{
-max-width:900px;
-margin:auto;
-padding:120px 20px 80px;
-}
-.section h2{
-text-align:center;
-font-size:34px;
-margin-bottom:50px;
-}
+        .btn-download {
+            background: #fff;
+            color: #000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-/* ========== ACCORDION ========== */
-.chapter{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:16px;
-margin-bottom:18px;
-overflow:hidden;
-}
-.chapter-header{
-padding:20px 24px;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-.chapter-header h3{
-font-size:18px;
-color:var(--accent);
-}
-.chapter-header span{
-font-size:22px;
-color:var(--muted);
-}
-.chapter-content{
-max-height:0;
-overflow:hidden;
-transition:0.4s ease;
-padding:0 24px;
-}
-.chapter-content p{
-color:#d4d4d8;
-font-size:15px;
-margin-bottom:12px;
-}
-.chapter.active .chapter-content{
-max-height:1000px;
-padding:20px 24px 30px;
-}
+        .btn-download:hover {
+            transform: translateY(-2px);
+            background: #f5f5f7;
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
 
-/* ========== FOOTER ========== */
-footer{
-border-top:1px solid var(--border);
-padding:40px 20px;
-text-align:center;
-color:var(--muted);
-font-size:14px;
-}
-</style>
+        .loader {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid #0071e3;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
+<body class="flex flex-col items-center justify-center p-6 min-h-screen">
 
-<body>
+    <div class="mb-10 text-center">
+        <h2 class="brand-logo text-4xl md:text-5xl mb-2">Codewithtiwariji</h2>
+        <p class="text-gray-500 font-light tracking-widest text-xs uppercase">Premium Tool Suite</p>
+    </div>
 
-<!-- WELCOME -->
-<div id="welcome-screen">
-<div class="welcome-content">
-<h1>Codewithtiwariji</h1>
-<p>Welcome! Java ko simple Hinglish mein samajhne ki jagah</p>
-<span>Loading knowledge for you… 🚀</span>
-</div>
-</div>
+    <div class="glass-card w-full max-w-xl p-8 md:p-12 text-center">
+        <h1 class="text-3xl font-bold mb-3 tracking-tight">Video Downloader</h1>
+        <p class="text-gray-400 mb-10 text-sm">Download YouTube & Instagram content in seconds.</p>
+        
+        <div class="relative mb-6">
+            <input type="text" id="videoUrl" placeholder="Paste your link here..." 
+                class="input-apple w-full p-5 rounded-2xl border border-white/10 outline-none text-lg">
+        </div>
+        
+        <button onclick="getDownloadLink()" id="btnAction"
+            class="btn-download w-full py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3">
+            <span>Get Download Link</span>
+            <div id="loader" class="loader"></div>
+        </button>
 
-<nav>
-<div class="logo">Codewithtiwariji</div>
-</nav>
+        <div id="result" class="mt-12 pt-8 border-t border-white/5 hidden animate-fade-in">
+            <div class="bg-white/5 p-6 rounded-3xl inline-block mb-6">
+                <i class="fas fa-file-video text-4xl text-blue-500"></i>
+            </div>
+            <h3 id="videoTitle" class="text-lg font-medium text-gray-200 mb-6 px-4 truncate"></h3>
+            
+            <a id="downloadBtn" href="#" target="_blank" 
+                class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-black px-8 py-4 rounded-full font-bold transition-all transform hover:scale-105">
+                <i class="fas fa-cloud-download-alt"></i>
+                Download High Quality
+            </a>
+        </div>
+    </div>
 
-<section class="hero">
-<h1>Java. <span>Reimagined.</span></h1>
-<p>266 Pages of Pure Knowledge. Line-by-line breakdown for the next generation of coders.</p>
-</section>
+    <footer class="mt-12 text-gray-600 text-sm">
+        &copy; 2026 TiwariX Web Solutions. All rights reserved.
+    </footer>
 
-<section class="section">
-<h2>Complete Java Notes (Hinglish)</h2>
+    <script>
+        async function getDownloadLink() {
+            const urlInput = document.getElementById('videoUrl');
+            const btn = document.getElementById('btnAction');
+            const loader = document.getElementById('loader');
+            const resultDiv = document.getElementById('result');
+            const url = urlInput.value;
 
-<!-- CHAPTERS START -->
+            if(!url) {
+                urlInput.classList.add('border-red-500');
+                setTimeout(() => urlInput.classList.remove('border-red-500'), 1000);
+                return;
+            }
 
-<div class="chapter">
-<div class="chapter-header"><h3>01. Mental Landscape</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Is chapter mein hum samajhte hain ki computer kaise kaam karta hai.</p>
-<p>Computer sirf 0 aur 1 samajhta hai jise machine language kehte hain.</p>
-<p>Java jaise high-level languages humans ke liye easy hoti hain.</p>
-<p>JVM Java ko har OS par chalne layak banati hai.</p>
-</div>
-</div>
+            // UI State: Loading
+            btn.style.opacity = "0.7";
+            btn.querySelector('span').innerText = "Fetching Video...";
+            loader.style.display = "block";
+            resultDiv.classList.add('hidden');
+            
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({url: url})
+                });
+                const data = await response.json();
 
-<div class="chapter">
-<div class="chapter-header"><h3>02. Names & Things</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Variable ek box hota hai jisme data store hota hai.</p>
-<p>Har variable ka data type hota hai.</p>
-<p>Primitive data types basic values store karte hain.</p>
-<p>String text ko handle karne ke kaam aati hai.</p>
-</div>
-</div>
-
-<div class="chapter"><div class="chapter-header"><h3>03. Control Flow</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Control flow decide karta hai kaunsa code kab chalega.</p>
-<p>If-else decision lene ke liye use hota hai.</p>
-<p>Loops repeated kaam ko easy bana dete hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>04. Methods</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Methods code ko reusable banate hain.</p>
-<p>Parameters data pass karte hain.</p>
-<p>Return value output deti hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>05. OOP Concepts</h3><span>+</span></div>
-<div class="chapter-content">
-<p>OOP real-world concepts par based hota hai.</p>
-<p>Class blueprint hoti hai aur object real entity.</p>
-<p>Inheritance aur polymorphism code reuse badhate hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>06. Arrays</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Array multiple values store karta hai.</p>
-<p>Index se data access hota hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>07. Strings</h3><span>+</span></div>
-<div class="chapter-content">
-<p>String immutable hoti hai.</p>
-<p>Text handling ke liye use hoti hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>08. Exception Handling</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Errors ko handle karne ke liye exception use hoti hai.</p>
-<p>Try-catch program ko crash hone se bachata hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>09. Packages</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Packages code ko organized rakhte hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>10. Interfaces</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Interface method ka structure define karti hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>11. File Handling</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Files data ko permanent store karti hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>12. Multithreading</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Multiple tasks ek saath run hote hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>13. Collections</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Dynamic data structures available hote hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>14. Generics</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Type safety provide karta hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>15. GUI Basics</h3><span>+</span></div>
-<div class="chapter-content">
-<p>User interaction ke liye GUI use hota hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>16. Event Handling</h3><span>+</span></div>
-<div class="chapter-content">
-<p>User actions events kehlate hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>17. JDBC</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Database ko Java se connect karta hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>18. Networking</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Computers ko connect karta hai.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>19. JVM Internals</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Memory aur garbage collection samajhte hain.</p>
-</div></div>
-
-<div class="chapter"><div class="chapter-header"><h3>20. Advanced Java</h3><span>+</span></div>
-<div class="chapter-content">
-<p>Servlet aur frameworks ka intro.</p>
-</div></div>
-
-</section>
-
-<footer>
-<p>Education should be simple, free aur samajhne layak ❤️</p>
-</footer>
-
-<script>
-setTimeout(()=>{
-document.getElementById("welcome-screen").style.display="none";
-},10000);
-
-document.querySelectorAll(".chapter-header").forEach(h=>{
-h.addEventListener("click",()=>{
-h.parentElement.classList.toggle("active");
-});
-});
-</script>
-
+                if(data.status === "success") {
+                    document.getElementById('videoTitle').innerText = data.title;
+                    document.getElementById('downloadBtn').href = data.download_url;
+                    resultDiv.classList.remove('hidden');
+                    // Smooth scroll to result
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    alert("Opps! Link valid nahi hai ya server busy hai.");
+                }
+            } catch (err) {
+                alert("Server Connection Failed!");
+            } finally {
+                btn.style.opacity = "1";
+                btn.querySelector('span').innerText = "Get Download Link";
+                loader.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
