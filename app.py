@@ -1,20 +1,29 @@
+ import os
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 import yt_dlp
 
 app = Flask(__name__)
+CORS(app)
 
+# Route for the Home Page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Error: Templates folder or index.html not found! {str(e)}", 500
 
+# Route for Download Logic
 @app.route('/download', methods=['POST'])
 def download_video():
     data = request.json
     video_url = data.get('url')
 
     if not video_url:
-        return jsonify({"error": "URL missing!"}), 400
+        return jsonify({"status": "error", "message": "URL missing!"}), 400
 
+    # yt-dlp configuration
     ydl_opts = {
         'format': 'best',
         'quiet': True,
@@ -24,7 +33,6 @@ def download_video():
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
-            # Direct video link fetch ho raha hai
             download_link = info.get('url')
             title = info.get('title', 'video')
             
@@ -36,5 +44,8 @@ def download_video():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+# Critical for Deployment (Render/Heroku/Vercel)
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Render provides a PORT environment variable
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
